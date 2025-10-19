@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: sparklab-postgres
+    environment:
+      POSTGRES_DB: sparklab2025
+      POSTGRES_USER: sparklab_user
+      POSTGRES_PASSWORD: sparklab_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - sparklab-network
+
+  # Backend Spring Boot
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sparklab-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/sparklab2025
+    depends_on:
+      - postgres
+    networks:
+      - sparklab-network
+    volumes:
+      - ./uploads:/app/uploads
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sparklab-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - sparklab-network
+
+volumes:
+  postgres_data:
+
+networks:
+  sparklab-network:
+    driver: bridge

@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border;
+  }
+  
+  body {
+    @apply bg-dark-bg text-text-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  
+  .glass-card {
+    @apply glass rounded-xl p-6 shadow-2xl;
+  }
+  
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, #6B46C1 0%, #3B82F6 50%, #06B6D4 100%);
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 via-electric-400 to-neon-400 bg-clip-text text-transparent;
+  }
+  
+  /* Animations */
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-dark-card rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary-600 rounded-full hover:bg-primary-500;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-electric-600 hover:from-primary-700 hover:to-electric-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-dark-card hover:bg-dark-border text-text-primary border border-dark-border hover:border-primary-500 font-medium px-6 py-3 rounded-lg transition-all duration-300;
+  }
+  
+  /* Input styles */
+  .input-primary {
+    @apply bg-dark-card border border-dark-border focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 text-text-primary placeholder-text-secondary rounded-lg px-4 py-3 transition-all duration-300;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary-500/10;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .border-gradient {
+    border-image: linear-gradient(135deg, #6B46C1, #3B82F6, #06B6D4) 1;
+  }
+}
